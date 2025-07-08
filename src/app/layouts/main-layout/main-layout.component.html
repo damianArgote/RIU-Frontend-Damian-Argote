@@ -1,0 +1,12 @@
+<app-navbar />
+<div class="layout">
+    <h1>{{title()}}</h1>
+
+    <mat-grid-list cols="4" rowHeight="520px" gutterSize="16px">
+        @for (hero of superheroes(); track hero.id) {
+        <mat-grid-tile>
+            <app-superhero-card [hero]="hero"/>
+        </mat-grid-tile>
+        }
+    </mat-grid-list>
+</div>

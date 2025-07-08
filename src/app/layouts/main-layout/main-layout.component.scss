@@ -1,0 +1,12 @@
+.layout {
+  padding: 16px;
+
+  h1 {
+    margin-bottom: 24px;
+  }
+
+  mat-grid-tile {
+    display: flex;
+    justify-content: center;
+  }
+}

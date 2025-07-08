@@ -1,0 +1,25 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+
+    &__title{
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+
+    &_links{
+        display: flex;
+        gap: 1rem;
+    }
+
+
+    &__item{
+        text-decoration: none;
+
+        &--active{
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    }
+}
