@@ -9,6 +9,29 @@ import {throwError } from 'rxjs';
 export class SuperheroService {
 
   private superheroes = signal<Superhero[]>([...SUPERHEROES]);
+  private searchTerm = signal('');
+  public readonly searchTermReadOnly = this.searchTerm.asReadonly();
+  private _universe = signal<UniverseType | undefined>(undefined);
+  public universe = this._universe.asReadonly();
+  public readonly superheroesReadOnly = this.superheroes.asReadonly();
+  public filteredHeroes = computed(() => {
+    const term = this.normalizeText(this.searchTerm());
+    const universe = this._universe();
+    return this.superheroes().filter(hero => {
+      const nameNormalized = this.normalizeText(hero.name);
+      const matchesName = nameNormalized.includes(term);
+      const matchesUniverse = universe ? hero.universe === universe : true;
+      return matchesName && matchesUniverse;
+    });
+  });
+
+  setUniverse(universe?: UniverseType) {
+    this._universe.set(universe);
+  }
+
+  setSearchTerm(term: string) {
+    this.searchTerm.set(term);
+  }
 
   getAll(universe?: UniverseType){
     if(!universe) return this.superheroes.asReadonly();
@@ -66,5 +89,14 @@ export class SuperheroService {
     }
 
     this.superheroes.update(current => current.filter(h => h.id !== id));
+  }
+
+
+  private normalizeText(text:string): string{
+    return text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
   }
 }

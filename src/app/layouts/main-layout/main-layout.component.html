@@ -1,12 +1,17 @@
-<app-navbar />
 <div class="layout">
     <h1>{{title()}}</h1>
-
-    <mat-grid-list cols="4" rowHeight="520px" gutterSize="16px">
+    
+    <div class="grid">
+        @if(!searchTerm){
         @for (hero of superheroes(); track hero.id) {
-        <mat-grid-tile>
-            <app-superhero-card [hero]="hero"/>
-        </mat-grid-tile>
+        <app-superhero-card class="card" [hero]="hero" />
         }
-    </mat-grid-list>
+        }
+        @else {
+        @for (hero of filteredHeroes(); track hero.id) {
+        <app-superhero-card class="card" [hero]="hero" />
+        }
+        }
+
+    </div>
 </div>
