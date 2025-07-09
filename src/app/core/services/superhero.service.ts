@@ -1,7 +1,9 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { Superhero, SuperheroProps, UniverseType } from '../models/superheroe.model';
 import { SUPERHEROES } from '../data/superheroes.data';
-import {throwError } from 'rxjs';
+
+import { WithLoading } from '../decorators/with-loading.decorator';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,14 +27,19 @@ export class SuperheroService {
     });
   });
 
+  constructor(public loadingService: LoadingService) {}
+
+  
   setUniverse(universe?: UniverseType) {
     this._universe.set(universe);
   }
 
+  @WithLoading()
   setSearchTerm(term: string) {
     this.searchTerm.set(term);
   }
 
+  @WithLoading()
   getAll(universe?: string){
     if(!universe) return this.superheroes.asReadonly();
     
@@ -40,12 +47,11 @@ export class SuperheroService {
     this.superheroes().filter(hero => hero.universe === universe));
   }
 
-
   getById(id:string){
     return computed(() => this.superheroes().find(h => h.id === id)) ;
   }
 
-
+  @WithLoading()
   add(heroData: SuperheroProps){
     const newHero = new Superhero(heroData);
 
@@ -59,6 +65,7 @@ export class SuperheroService {
 
   }
 
+  @WithLoading()
   update(id:string, updateData: Partial<SuperheroProps>){
     const index = this.superheroes().findIndex(h => h.id === id);
 
@@ -80,6 +87,7 @@ export class SuperheroService {
     });
   }
 
+  @WithLoading()
   delete(id:string){
     const exists = this.superheroes().some(h => h.id === id);
 

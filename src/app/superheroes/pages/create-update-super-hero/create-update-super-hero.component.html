@@ -1,6 +1,8 @@
 <section class="superhero-container">
-    <h1 class="superhero-container__title">{{ isEditMode() ? 'Editar Superheroe' : 'Crear Superheroe'}}</h1>
-
+    <div class="superhero-container__title">
+        <h1>{{ isEditMode() ? 'Ver Detalles o Editar Superheroe' : 'Crear Superheroe'}}</h1>
+    <p>{{isEditMode() ? 'Observa el detalle del superheroe y edita sus propiedades' : 'Crea un nuevo superheroe para que se agregue a la lista'}}</p>
+    </div>
     <div class="superhero-form__grid">
         <div class="superhero-form__image">
             @if(!isEditMode() && selectedUniverse){
