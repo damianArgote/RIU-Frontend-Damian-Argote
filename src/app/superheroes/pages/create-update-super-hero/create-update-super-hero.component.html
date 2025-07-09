@@ -1,0 +1,83 @@
+<section class="superhero-container">
+    <h1 class="superhero-container__title">{{ isEditMode() ? 'Editar Superheroe' : 'Crear Superheroe'}}</h1>
+
+    <div class="superhero-form__grid">
+        <div class="superhero-form__image">
+            @if(!isEditMode() && selectedUniverse){
+            <img [src]="'/' + selectedUniverse +'-logo' + '.png'" [alt]="selectedUniverse + ' logo'" width="150" />
+            }
+            @else {
+            <img [src]="hero()?.imageUrl" [alt]="'image' + hero()?.name" />
+            }
+
+        </div>
+
+        <form class="superhero-form__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <mat-label>Universo</mat-label>
+            <mat-radio-group formControlName="universe">
+                <mat-radio-button value="marvel">Marvel</mat-radio-button>
+                <mat-radio-button value="dc">DC</mat-radio-button>
+            </mat-radio-group>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name" />
+                <app-form-error [control]="form.get('name')" [fieldName]="'Nombre'"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Alter egos</mat-label>
+                <mat-chip-grid #chipGridAlterEgos [formControl]="alterEgosControl">
+                    @for (alter of form.get('alterEgos')?.value ?? []; track alter){
+                    <mat-chip-row (removed)="removeItem(alter,'alterEgos')">
+                        {{alter}}
+                        <button matChipRemove>
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip-row>
+                    }
+                </mat-chip-grid>
+                <input placeholder="Add alter ego..." [matChipInputFor]="chipGridAlterEgos"
+                    (matChipInputTokenEnd)="addItem($event,'alterEgos')" />
+                <app-form-error [control]="alterEgosControl" [fieldName]="'Alter egos'"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Poderes</mat-label>
+                <mat-chip-grid #chipGridPowers [formControl]="powersControl">
+                    @for (power of form.get('powers')?.value ?? []; track power){
+                    <mat-chip-row (removed)="removeItem(power,'powers')">
+                        {{power}}
+                        <button matChipRemove>
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip-row>
+                    }
+                </mat-chip-grid>
+                <input placeholder="Add power..." [matChipInputFor]="chipGridPowers"
+                    (matChipInputTokenEnd)="addItem($event,'powers')" />
+                <app-form-error [control]="powersControl" [fieldName]="'Poderes'"/>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Ubicación</mat-label>
+                <input matInput formControlName="location" />
+                <app-form-error [control]="form.get('location')" [fieldName]="'Ubicación'"/>
+            </mat-form-field>
+
+            <button mat-raised-button class="superhero-form__button" type="submit" [disabled]="form.invalid">
+                Guardar
+            </button>
+            @if (formError) {
+            <div class="form-error">
+                {{ formError }}
+            </div>
+            }
+
+        </form>
+
+
+    </div>
+
+</section>

@@ -1,0 +1,35 @@
+@if(control?.touched){
+  @if (customMessage && hasError()) {
+  <mat-error>{{ customMessage }}</mat-error>
+  }
+
+  @if (control?.hasError('required') && !customMessage) {
+  <mat-error>{{ fieldName }} es <strong>obligatorio</strong></mat-error>
+  }
+
+  @if (control?.hasError('email') && !control?.hasError('required') && !customMessage) {
+  <mat-error>{{ fieldName }} debe tener un formato válido</mat-error>
+  }
+
+  @if (control?.hasError('minlength') && !customMessage) {
+  <mat-error>
+    {{ fieldName }} debe tener al menos {{ control?.getError('minlength')?.requiredLength }}
+    caracteres
+  </mat-error>
+  }
+
+  @if (control?.hasError('maxlength') && !customMessage) {
+  <mat-error>
+    {{ fieldName }} no puede tener más de {{ control?.getError('maxlength')?.requiredLength }}
+    caracteres
+  </mat-error>
+  }
+
+  @if (control?.hasError('minLengthArray') && !customMessage) {
+  <mat-error>Debe ingresar al menos un valor</mat-error>
+  }
+
+  @if (control?.hasError('maxLengthArray') && !customMessage) {
+  <mat-error>No se pueden ingresar más de cinco valores</mat-error>
+  }
+}

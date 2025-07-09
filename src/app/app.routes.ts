@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
+import { CreateUpdateSuperHeroComponent } from './superheroes/pages/create-update-super-hero/create-update-super-hero.component';
 
 export const routes: Routes = [
     {
@@ -19,6 +20,14 @@ export const routes: Routes = [
                 path: 'marvel',
                 component: MainLayoutComponent,
                 data: { universe: 'marvel' }
+            },
+            {
+                path:'new',
+                component:CreateUpdateSuperHeroComponent
+            },
+            {
+                path:'edit/:id',
+                component:CreateUpdateSuperHeroComponent
             },
 
             {

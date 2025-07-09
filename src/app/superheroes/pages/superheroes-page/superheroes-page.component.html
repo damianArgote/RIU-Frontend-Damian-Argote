@@ -1,5 +1,12 @@
-<app-navbar/>
+<app-navbar />
 <main class="container">
-    <app-search/>
-    <router-outlet/>
+
+    @if (showFabAndSearch()) {
+        <app-search />
+        <section class="fab">
+            <app-fab-button />
+        </section>
+    }
+
+    <router-outlet />
 </main>

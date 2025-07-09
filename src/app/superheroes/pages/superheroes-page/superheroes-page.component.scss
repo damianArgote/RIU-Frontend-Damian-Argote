@@ -4,4 +4,12 @@
     flex-direction: column;
     justify-content: center;
     margin: 0px auto;
+    position: relative;
+
+    .fab{
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 999;
+    }
 }

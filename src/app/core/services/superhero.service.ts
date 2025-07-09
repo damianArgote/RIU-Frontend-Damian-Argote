@@ -33,7 +33,7 @@ export class SuperheroService {
     this.searchTerm.set(term);
   }
 
-  getAll(universe?: UniverseType){
+  getAll(universe?: string){
     if(!universe) return this.superheroes.asReadonly();
     
     return computed(() => 

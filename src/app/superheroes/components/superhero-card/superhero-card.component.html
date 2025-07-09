@@ -17,8 +17,8 @@
         </mat-chip-set>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-icon-button><mat-icon>delete</mat-icon></button>
-        <button mat-icon-button><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button (click)="openConfirmDialog(hero()!)"><mat-icon>delete</mat-icon></button>
+        <button mat-icon-button (click)="goToEdit(hero()?.id!)"><mat-icon>edit</mat-icon></button>
     </mat-card-actions>
 </mat-card>
 }
