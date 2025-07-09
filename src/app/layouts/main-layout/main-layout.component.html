@@ -1,17 +1,13 @@
 <div class="layout">
     <h1>{{title()}}</h1>
-    
-    <div class="grid">
-        @if(!searchTerm){
-        @for (hero of superheroes(); track hero.id) {
-        <app-superhero-card class="card" [hero]="hero" />
-        }
-        }
-        @else {
-        @for (hero of filteredHeroes(); track hero.id) {
-        <app-superhero-card class="card" [hero]="hero" />
-        }
-        }
 
+    <div class="grid">
+        @for (hero of filteredHeroesPaginated(); track hero.id) {
+        <app-superhero-card class="card" [hero]="hero" />
+        }
     </div>
+
+    <app-paginator [length]="totalFiltered()" [pageSize]="pageSize()" [pageSizeOptions]="[3, 6, 12]"
+        (pageChange)="onPageChange($event)">
+    </app-paginator>
 </div>

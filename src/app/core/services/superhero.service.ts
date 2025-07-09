@@ -27,9 +27,9 @@ export class SuperheroService {
     });
   });
 
-  constructor(public loadingService: LoadingService) {}
+  constructor(public loadingService: LoadingService) { }
 
-  
+
   setUniverse(universe?: UniverseType) {
     this._universe.set(universe);
   }
@@ -40,44 +40,59 @@ export class SuperheroService {
   }
 
   @WithLoading()
-  getAll(universe?: string){
-    if(!universe) return this.superheroes.asReadonly();
-    
-    return computed(() => 
-    this.superheroes().filter(hero => hero.universe === universe));
+  getAll(universe?: string, pageIndex: number = 0, pageSize: number = 10) {
+    if (!universe) {
+      return computed(() => {
+        const heroes = this.superheroes();
+        const start = pageIndex * pageSize
+
+        return heroes.splice(start, start + pageSize);
+      })
+    }
+
+    return computed(() => {
+      const filtered = this.superheroes().filter(hero => hero.universe === universe);
+      const start = pageIndex * pageSize;
+      return filtered.slice(start, start + pageSize);
+    });
   }
 
-  getById(id:string){
-    return computed(() => this.superheroes().find(h => h.id === id)) ;
+  getTotalCount(universe?: string): number {
+    if (!universe) return this.superheroes().length;
+    return this.superheroes().filter(h => h.universe === universe).length;
+  }
+
+  getById(id: string) {
+    return computed(() => this.superheroes().find(h => h.id === id));
   }
 
   @WithLoading()
-  add(heroData: SuperheroProps){
+  add(heroData: SuperheroProps) {
     const newHero = new Superhero(heroData);
 
     const validate = this.superheroes().some(h => h.id === newHero.id);
 
-    if(validate){
+    if (validate) {
       throw new Error(`There is already a superhero with ID: ${newHero.id}`);
     }
 
-    this.superheroes.update(current => [...current,newHero]);
+    this.superheroes.update(current => [...current, newHero]);
 
   }
 
   @WithLoading()
-  update(id:string, updateData: Partial<SuperheroProps>){
+  update(id: string, updateData: Partial<SuperheroProps>) {
     const index = this.superheroes().findIndex(h => h.id === id);
 
-    if(index === -1){
-     throw new Error(`Superhero with ID: ${id} not found`)
+    if (index === -1) {
+      throw new Error(`Superhero with ID: ${id} not found`)
     }
 
     const current = this.superheroes()[index];
     const updateHero = new Superhero({
       ...current,
       ...updateData,
-      id:current.id
+      id: current.id
     });
 
     this.superheroes.update(heroes => {
@@ -88,10 +103,10 @@ export class SuperheroService {
   }
 
   @WithLoading()
-  delete(id:string){
+  delete(id: string) {
     const exists = this.superheroes().some(h => h.id === id);
 
-    if(!exists){
+    if (!exists) {
       throw new Error(`Superhero with ID: ${id} not found`)
 
     }
@@ -100,11 +115,11 @@ export class SuperheroService {
   }
 
 
-  private normalizeText(text:string): string{
+  private normalizeText(text: string): string {
     return text
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .trim()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim()
   }
 }

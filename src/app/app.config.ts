@@ -4,6 +4,8 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getTranslatePaginator } from './core/utils/get-translate-paginator';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -11,6 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes), 
     provideAnimationsAsync(),
     provideAnimations(),
-    provideToastr()
+    provideToastr(),
+    { provide: MatPaginatorIntl, useFactory: getTranslatePaginator }
   ]
 };
