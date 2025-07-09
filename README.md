@@ -1,27 +1,39 @@
-# RIUFrontendDamianArgote
+# Superheroes App Challenge
+This project is a challenge proposed by the MinData team for the RIU Hotel client.  
+It consists of a superhero management application built with Angular.  
+**Author: Damian Argote**
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.20.
+---
+## Prerequisites
 
-## Development server
+- Install [Docker](https://docs.docker.com/get-docker/)
+- Install [Node.js](https://nodejs.org/) (only needed for local development without Docker)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+## Running in Development Mode
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Install dependencies
 
-## Build
+```bash
+npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+2. Start the Angular development server and open a browser
+```bash
+ng serve -o
+```
 
-## Running unit tests
+## Running in Production Mode
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Build the production image (using Dockerfile)
 
-## Running end-to-end tests
+```bash
+docker build -t heroes-app . --no-chache
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+2. Run the container (for example, on port 80)
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+docker container run -p 80:80 heroes-app
+```
