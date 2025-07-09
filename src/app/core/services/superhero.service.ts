@@ -46,7 +46,7 @@ export class SuperheroService {
         const heroes = this.superheroes();
         const start = pageIndex * pageSize
 
-        return heroes.splice(start, start + pageSize);
+        return heroes.slice(start, start + pageSize);
       })
     }
 
