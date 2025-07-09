@@ -8,12 +8,13 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { FormErrorComponent } from '../../../shared/components/form-error/form-error.component';
+import { UppercaseDirective } from '../../../core/directives/uppercase.directive';
 
 
 @Component({
   selector: 'app-create-update-super-hero',
   standalone: true,
-  imports: [MaterialModule, ReactiveFormsModule, FormsModule,FormErrorComponent],
+  imports: [MaterialModule, ReactiveFormsModule, FormsModule,FormErrorComponent, UppercaseDirective],
   templateUrl: './create-update-super-hero.component.html',
   styleUrl: './create-update-super-hero.component.scss'
 })

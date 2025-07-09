@@ -16,3 +16,19 @@
     display: block;
   }
 }
+
+.loading-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+
+  mat-spinner {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}

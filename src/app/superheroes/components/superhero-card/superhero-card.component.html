@@ -1,24 +1,31 @@
 @if (hero()) {
-<mat-card class="hero-card" appearance="outlined">
-    <mat-card-header class="hero-card__header">
-        <mat-card-title>{{ hero()!.name }}</mat-card-title>
-        <mat-card-subtitle>{{ hero()!.universe }}</mat-card-subtitle>
-    </mat-card-header>
-    <div class="cover">
-        <img mat-card-image [src]="hero()!.imageUrl" [alt]="hero()!.name" />
+    @defer (on viewport){
+    <mat-card class="hero-card" appearance="outlined">
+        <mat-card-header class="hero-card__header">
+            <mat-card-title>{{ hero()!.name }}</mat-card-title>
+            <mat-card-subtitle>{{ hero()!.universe }}</mat-card-subtitle>
+        </mat-card-header>
+        <div class="cover">
+            <img mat-card-image [src]="hero()!.imageUrl" [alt]="hero()!.name" />
+        </div>
+        <mat-card-content>
+            <p><strong>Alter egos:</strong> {{ hero()!.alterEgos.join(', ') }}</p>
+            <p><strong>Ubicación:</strong> {{ hero()!.location }}</p>
+            <mat-chip-set cdkDropList cdkDropListOrientation="horizontal">
+                @for (power of hero()!.powers; track $index) {
+                <mat-chip cdkDrag>{{power}}</mat-chip>
+                }
+            </mat-chip-set>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-icon-button (click)="openConfirmDialog(hero()!)"><mat-icon>delete</mat-icon></button>
+            <button mat-icon-button (click)="goToEdit(hero()?.id!)"><mat-icon>edit</mat-icon></button>
+        </mat-card-actions>
+    </mat-card>
+    }
+    @placeholder {
+    <div class="loading-placeholder">
+        <mat-spinner></mat-spinner>
     </div>
-    <mat-card-content>
-        <p><strong>Alter egos:</strong> {{ hero()!.alterEgos.join(', ') }}</p>
-        <p><strong>Ubicación:</strong> {{ hero()!.location }}</p>
-        <mat-chip-set  cdkDropList cdkDropListOrientation="horizontal">
-            @for (power of hero()!.powers; track $index) {
-            <mat-chip cdkDrag>{{power}}</mat-chip>
-            }
-        </mat-chip-set>
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-icon-button (click)="openConfirmDialog(hero()!)"><mat-icon>delete</mat-icon></button>
-        <button mat-icon-button (click)="goToEdit(hero()?.id!)"><mat-icon>edit</mat-icon></button>
-    </mat-card-actions>
-</mat-card>
+    }
 }

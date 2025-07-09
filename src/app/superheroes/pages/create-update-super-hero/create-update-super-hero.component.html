@@ -23,7 +23,7 @@
 
             <mat-form-field appearance="outline" class="w-full">
                 <mat-label>Nombre</mat-label>
-                <input matInput formControlName="name" />
+                <input matInput formControlName="name" appUppercase  />
                 <app-form-error [control]="form.get('name')" [fieldName]="'Nombre'"/>
             </mat-form-field>
 
