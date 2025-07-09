@@ -1,0 +1,14 @@
+.home-layout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  height: 100vh;
+
+  & > app-home-card {
+    flex: 1 1 300px;
+    max-width: 300px;
+  }
+}

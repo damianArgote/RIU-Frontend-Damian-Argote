@@ -1,8 +1,13 @@
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { CreateUpdateSuperHeroComponent } from './superheroes/pages/create-update-super-hero/create-update-super-hero.component';
+import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 
 export const routes: Routes = [
+    {
+        path:'',
+        component: HomeLayoutComponent
+    },
     {
         path: 'superheroes',
         loadComponent: () => import('./superheroes/pages/superheroes-page/superheroes-page.component').then(c => c.SuperheroesPageComponent),
@@ -39,7 +44,7 @@ export const routes: Routes = [
     },
     {
         path:'**',
-        redirectTo:'superheroes'
+        redirectTo:''
     }
 
 ];
