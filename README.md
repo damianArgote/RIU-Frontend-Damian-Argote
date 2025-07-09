@@ -29,7 +29,7 @@ ng serve -o
 1. Build the production image (using Dockerfile)
 
 ```bash
-docker build -t heroes-app . --no-chache
+docker build -t heroes-app . --no-cache
 ```
 
 2. Run the container (for example, on port 80)
