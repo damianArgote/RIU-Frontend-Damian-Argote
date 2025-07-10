@@ -6,7 +6,7 @@
     margin: 0 auto;
 
     &__title {
-        h1{
+        h1 {
             font-size: 35px;
             font-weight: bold;
         }
@@ -61,13 +61,28 @@
             }
         }
 
-        &__button {
-            align-self: flex-start;
-            background-color: #4dabf7;
-            color: #fff;
+        &__buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
 
-            &:hover {
-                background-color: #339af0;
+            &--submit {
+                color: #fff;
+                background-color: #4dabf7;
+                
+
+                &:hover {
+                    background-color: #339af0;
+                }
+            }
+
+            &--cancel {
+                color: #fff;
+                background-color: #f74d4d;
+                &:hover {
+                    background-color: #f62c2c;
+                }
             }
         }
 
@@ -75,7 +90,7 @@
 }
 
 .form-error {
-  color: #e53935;
-  margin-top: 12px;
-  font-weight: 600;
+    color: #e53935;
+    margin-top: 12px;
+    font-weight: 600;
 }

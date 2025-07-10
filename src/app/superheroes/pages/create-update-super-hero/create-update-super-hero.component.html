@@ -68,9 +68,16 @@
                 <app-form-error [control]="form.get('location')" [fieldName]="'Ubicación'"/>
             </mat-form-field>
 
-            <button mat-raised-button class="superhero-form__button" type="submit" [disabled]="form.invalid">
-                Guardar
-            </button>
+            <div class="superhero-form__buttons">
+                <button mat-raised-button class="superhero-form__buttons--cancel" type="button" (click)="onCancel()">
+                    Cancelar
+                </button>
+
+                <button mat-raised-button class="superhero-form__buttons--submit" type="submit" [disabled]="form.invalid">
+                    Guardar
+                </button>
+            </div>
+            
             @if (formError) {
             <div class="form-error">
                 {{ formError }}

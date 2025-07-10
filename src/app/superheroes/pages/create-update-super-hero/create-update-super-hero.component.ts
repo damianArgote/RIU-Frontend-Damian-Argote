@@ -14,7 +14,7 @@ import { UppercaseDirective } from '../../../core/directives/uppercase.directive
 @Component({
   selector: 'app-create-update-super-hero',
   standalone: true,
-  imports: [MaterialModule, ReactiveFormsModule, FormsModule,FormErrorComponent, UppercaseDirective],
+  imports: [MaterialModule, ReactiveFormsModule, FormsModule, FormErrorComponent, UppercaseDirective],
   templateUrl: './create-update-super-hero.component.html',
   styleUrl: './create-update-super-hero.component.scss'
 })
@@ -56,7 +56,7 @@ export class CreateUpdateSuperHeroComponent {
     } else if (this.isEditMode() && !this.hero()) {
       this.formError = 'El superhéroe no fue encontrado.';
     }
-    
+
   }
 
   get powersControl(): FormControl<string[]> {
@@ -130,5 +130,11 @@ export class CreateUpdateSuperHeroComponent {
       this.formError = error.message || 'Error al guardar';
     }
 
+  }
+
+  onCancel() {
+    this.formError = null;
+    this.form.reset();
+    this.location.back();
   }
 }
