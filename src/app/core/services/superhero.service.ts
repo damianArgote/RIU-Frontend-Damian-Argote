@@ -16,16 +16,23 @@ export class SuperheroService {
   private _universe = signal<UniverseType | undefined>(undefined);
   public universe = this._universe.asReadonly();
   public readonly superheroesReadOnly = this.superheroes.asReadonly();
+
   public filteredHeroes = computed(() => {
-    const term = this.normalizeText(this.searchTerm());
-    const universe = this._universe();
-    return this.superheroes().filter(hero => {
-      const nameNormalized = this.normalizeText(hero.name);
-      const matchesName = nameNormalized.includes(term);
-      const matchesUniverse = universe ? hero.universe === universe : true;
-      return matchesName && matchesUniverse;
-    });
+  const term = this.normalizeText(this.searchTerm());
+  const universe = this._universe();
+  const searchWords = term.split(/\s+/).filter(Boolean);
+
+  return this.superheroes().filter(hero => {
+    const nameNormalized = this.normalizeText(hero.name);
+    const matchesName = searchWords.every(word =>
+      nameNormalized.includes(word)
+    );
+
+    const matchesUniverse = universe ? hero.universe === universe : true;
+
+    return matchesName && matchesUniverse;
   });
+});
 
   constructor(public loadingService: LoadingService) { }
 
@@ -73,7 +80,7 @@ export class SuperheroService {
     const validate = this.superheroes().some(h => h.id === newHero.id);
 
     if (validate) {
-      throw new Error(`There is already a superhero with ID: ${newHero.id}`);
+      throw new Error(`Ya existe un superhero con el ID: ${newHero.id}`);
     }
 
     this.superheroes.update(current => [...current, newHero]);
@@ -85,7 +92,7 @@ export class SuperheroService {
     const index = this.superheroes().findIndex(h => h.id === id);
 
     if (index === -1) {
-      throw new Error(`Superhero with ID: ${id} not found`)
+      throw new Error(`Superheroe con ID: ${id} no encontrado`)
     }
 
     const current = this.superheroes()[index];
@@ -107,7 +114,7 @@ export class SuperheroService {
     const exists = this.superheroes().some(h => h.id === id);
 
     if (!exists) {
-      throw new Error(`Superhero with ID: ${id} not found`)
+      throw new Error(`Superheroe con ID: ${id} no encontrado`)
 
     }
 
