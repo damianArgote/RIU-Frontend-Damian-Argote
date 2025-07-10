@@ -37,13 +37,15 @@ export class CreateUpdateSuperHeroComponent {
     return this.superheroesService.getById(this.id())();
   });
 
+  public maxMatChip: number = 5;
+
   constructor() {
 
     this.form = this.fb.group({
       name: ['', Validators.required],
       universe: [{ value: 'marvel', disabled: this.isEditMode() }],
-      alterEgos: this.fb.control<string[]>([], [this.arrayLengthValidator(1, 5)]),
-      powers: this.fb.control<string[]>([], [this.arrayLengthValidator(1, 5)]),
+      alterEgos: this.fb.control<string[]>([], [this.arrayLengthValidator(1, this.maxMatChip)]),
+      powers: this.fb.control<string[]>([], [this.arrayLengthValidator(1, this.maxMatChip)]),
       location: ['', Validators.required]
     })
   }
@@ -76,7 +78,7 @@ export class CreateUpdateSuperHeroComponent {
     const control = this.form.get(field);
     const current = control?.value as string[];
 
-    if (value && current.length < 3) {
+    if (value && current.length < this.maxMatChip) {
       control?.setValue([...current, value]);
       control?.markAsTouched();
     }

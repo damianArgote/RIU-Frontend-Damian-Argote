@@ -16,8 +16,8 @@ function delayPromise(ms: number) {
 
 export function WithLoading() {
   return function (
-    target: any,
-    propertyKey: string,
+    _: unknown,
+    __: string,
     descriptor: PropertyDescriptor
   ) {
 
