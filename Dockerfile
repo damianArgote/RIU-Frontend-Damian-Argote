@@ -1,4 +1,16 @@
-#Stage 1: build app
+# Stage 1: test
+FROM node:18-alpine as tester
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm install
+
+COPY . .
+
+RUN npm run test:headless
+
+#Stage 2: build app
 FROM node:18-alpine as builder
 
 WORKDIR /app
@@ -7,10 +19,11 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 COPY . .
+
 RUN npm run build
 
 
-#Stage 2: Nginx
+#Stage 3: Nginx
 FROM nginx:1.23.3 as prod
 EXPOSE 80
 
