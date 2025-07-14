@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MaterialModule } from '../../../../shared/modules/material.module';
 
 @Component({
@@ -10,6 +10,6 @@ import { MaterialModule } from '../../../../shared/modules/material.module';
 })
 export class HomeCardComponent {
 
-  @Input({ required: true }) title!: string;
-  @Input() image?: string;
+  title = input<string>('')
+  image = input<string>('')
 }

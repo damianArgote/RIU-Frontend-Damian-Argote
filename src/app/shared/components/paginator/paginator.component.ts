@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, input, output, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-paginator',
@@ -9,17 +9,19 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 })
 export class PaginatorComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @Input() length = 0;
-  @Input() pageSize = 5;
-  @Input() pageSizeOptions: number[] = [5, 10, 20];
 
-  @Output() pageChange = new EventEmitter<PageEvent>();
+
+  length = input<number>(0)
+  pageSize = input<number>(5)
+  pageSizeOptions = input<number[]>([5, 10, 20])
+
+  pageChange = output<PageEvent>();
 
   ngAfterViewInit() {
     this.pageChange.emit({
       pageIndex: 0,
-      pageSize: this.pageSize,
-      length: this.length
+      pageSize: this.pageSize(),
+      length: this.length()
     });
   }
 

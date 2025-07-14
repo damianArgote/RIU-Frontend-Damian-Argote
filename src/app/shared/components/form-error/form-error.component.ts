@@ -1,4 +1,4 @@
-import { Component, computed, Input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { AbstractControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatError } from '@angular/material/form-field';
 
@@ -10,10 +10,10 @@ import { MatError } from '@angular/material/form-field';
   styleUrl: './form-error.component.scss'
 })
 export class FormErrorComponent {
-  @Input({ required: true }) control!: AbstractControl | null;
-  @Input({ required: true }) fieldName: string = '';
-  @Input() customMessage?: string;
 
+  control = input<AbstractControl | null>(null)
+  fieldName = input<string>('')
+  customMessage = input<string>('')
 
   public readonly hasError = computed(() =>
     this.control instanceof FormControl &&

@@ -1,11 +1,11 @@
 <mat-card class="home-card">
-  @if (image) {
+  @if (image()) {
     <div class="home-card__image-wrapper">
-      <img [src]="image" alt="Card image" class="home-card__image" />
+      <img [src]="image()" alt="Card image" class="home-card__image" />
     </div>
   }
 
   <div class="home-card__content">
-    <h2 class="home-card__title" [class.home-card__title--big]="!image">{{ title }}</h2>
+    <h2 class="home-card__title" [class.home-card__title--big]="!image()">{{ title() }}</h2>
   </div>
 </mat-card>
