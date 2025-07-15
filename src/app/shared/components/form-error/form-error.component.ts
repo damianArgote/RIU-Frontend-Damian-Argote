@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, effect, input, signal } from '@angular/core';
 import { AbstractControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatError } from '@angular/material/form-field';
 
@@ -15,10 +15,17 @@ export class FormErrorComponent {
   fieldName = input<string>('')
   customMessage = input<string>('')
 
-  public readonly hasError = computed(() =>
-    this.control instanceof FormControl &&
-    this.control.invalid &&
-    this.control.touched
-  );
+  hasError = signal(false);
+
+  constructor() {
+    effect(() => {
+      const ctrl = this.control();
+      if (ctrl instanceof FormControl) {
+        this.hasError.set(ctrl.invalid && ctrl.touched);
+      } else {
+        this.hasError.set(false);
+      }
+    }, { allowSignalWrites: true });
+  }
 
 }

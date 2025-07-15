@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { MaterialModule } from '../../modules/material.module';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fab-button',
   standalone: true,
-  imports: [MaterialModule,RouterLink],
+  imports: [MaterialModule],
   templateUrl: './fab-button.component.html',
   styleUrl: './fab-button.component.scss'
 })

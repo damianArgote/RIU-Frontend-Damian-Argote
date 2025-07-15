@@ -42,7 +42,7 @@ export class SuperheroCardComponent {
           this.superheroService.delete(hero.id!);
           this.toast.success(`Se ha eliminado a ${hero.name}`);
         } catch (error) {
-          
+          this.toast.error(`Error al eliminar a ${hero.name}: ${error}`);
         }
       }
     })

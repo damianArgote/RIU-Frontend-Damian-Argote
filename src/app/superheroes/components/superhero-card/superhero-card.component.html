@@ -9,7 +9,9 @@
         <img mat-card-image [src]="hero()!.imageUrl" [alt]="hero()!.name" />
     </div>
     <mat-card-content>
-        <p><strong>Alter egos:</strong> {{ hero()!.alterEgos.join(', ') }}</p>
+        @if(hero()?.alterEgos?.length){
+             <p><strong>Alter egos:</strong> {{ hero()!.alterEgos.join(', ') }}</p>
+        }
         <p><strong>Ubicación:</strong> {{ hero()!.location }}</p>
         <mat-chip-set cdkDropList cdkDropListOrientation="horizontal">
             @for (power of hero()!.powers; track $index) {
